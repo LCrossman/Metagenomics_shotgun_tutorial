@@ -7,34 +7,34 @@
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=hrj09fju@uea.ac.uk
 
-module load python/anaconda/2024.06  # Load Anaconda module to enable Conda commands
+module load python/anaconda/2024.10/3.12.7  # Load Anaconda module to enable Conda commands
 
 
 # Initialize Conda
-source /gpfs/software/hali/python/anaconda/2024.06/etc/profile.d/conda.sh
+#source /gpfs/software/hali/python/anaconda/2024.06/etc/profile.d/conda.sh
 
-conda env create -f Metagenomics_env.yaml
+#conda env create -f Metagenomics_env.yaml
 
-conda activate Metagenomics_env
+#conda activate Metagenomics_env
 
 #export PATH=
 
 # Define input/output directories
-GENOME_FASTA="/gpfs/home/hrj09fju/scratch/References/Mockscaffolds.fasta"
-FASTQ_DIR="/gpfs/home/hrj09fju/scratch/Data/MockCommunity/FastQ/raw_data"
-OUTPUT_DIR="/gpfs/home/hrj09fju/scratch/Data/MockCommunity/ReadAligns"
+GENOME_FASTA="/gpfs/home/hrj09fju/scratch/References/Communityscaffolds.fasta"
+FASTQ_DIR="/gpfs/home/hrj09fju/scratch/Data/Community/FastQ/raw_data"
+OUTPUT_DIR="/gpfs/home/hrj09fju/scratch/Data/Community/ReadAligns"
 
 # Ensure OUTPUT_DIR exists
 mkdir -p "$OUTPUT_DIR"
 
-bowtie2-build Mockscaffolds.fasta Mockscaffolds.fasta
-bowtie2 -p 16 -x Mockscaffolds.fasta -1 Mock_Community_EDME200007170-1a_HCYHVDSXY_L2_1.fq.gz -2 Mock_Community_EDME200007170-1a_HCYHVDSXY_L2_2.fq.gz -S Mock_aligned.sam
+bowtie2-build Communityscaffolds.fasta Communityscaffolds.fasta
+bowtie2 -p 16 -x Communityscaffolds.fasta -1 EDME200007170-1a_HCYHVDSXY_L2_1.fq.gz -2 EDME200007170-1a_HCYHVDSXY_L2_2.fq.gz -S Community_aligned.sam
 
-samtools view -@ 16 Mock_aligned.sam > Mock_aligned.bam
-samtools sort -@ 16 Mock_aligned.bam -o Mock_aligned.bam.sorted.bam
-samtools index Mock_aligned.bam.sorted.bam
+samtools view -@ 16 Community_aligned.sam > Community_aligned.bam
+samtools sort -@ 16 Community_aligned.bam -o Community_aligned.bam.sorted.bam
+samtools index Community_aligned.bam.sorted.bam
 
-conda deactivate
+#conda deactivate
 
 
 #delete intermediate files for cleanup

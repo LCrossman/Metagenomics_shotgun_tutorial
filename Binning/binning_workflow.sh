@@ -7,36 +7,36 @@
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=hrj09fju@uea.ac.uk
 
-module load python/anaconda/2024.06  # check path and load Anaconda module to enable Conda commands
+module load python/anaconda/2024.10/3.12.7  # check path and load Anaconda module to enable Conda commands
 
 
 # Initialize Conda
-source /gpfs/software/hali/python/anaconda/2024.06/etc/profile.d/conda.sh
+#source /gpfs/software/hali/python/anaconda/2024.10/etc/profile.d/conda.sh
 
-conda env create -f Metagenomics_env.yaml
+#conda env create -f Metagenomics_env.yaml
 
-conda activate Metagenomics_env
+#conda activate Metagenomics_env
 
 
 # Define input/output directories
-GENOME_FASTA="/gpfs/home/hrj09fju/scratch/References/Mockscaffolds.fasta"
-FASTQ_DIR="/gpfs/home/hrj09fju/scratch/Data/MockCommunity/FastQ/raw_data"
-INPUT_DIR="/gpfs/home/hrj09fju/scratch/Data/MockCommunity/ReadAligns"
-OUTPUT_DIR="/gpfs/home/hrj09fju/scratch/Data/MockCommunity/Bins"
+GENOME_FASTA="/gpfs/home/hrj09fju/scratch/References/Communityscaffolds.fasta"
+FASTQ_DIR="/gpfs/home/hrj09fju/scratch/Data/Community/FastQ/raw_data"
+INPUT_DIR="/gpfs/home/hrj09fju/scratch/Data/Community/ReadAligns"
+OUTPUT_DIR="/gpfs/home/hrj09fju/scratch/Data/Community/Bins"
 
 # Ensure OUTPUT_DIR exists
 mkdir -p "$OUTPUT_DIR"
 
-conda activate metabat2
+module load metabat2
 
-jgi_summarize_bam_contig_depths --referenceFasta Mockscaffolds.fasta --outputDepth depth.txt Mocked.bam.sorted.bam
+jgi_summarize_bam_contig_depths --referenceFasta Communityscaffolds.fasta --outputDepth depth.txt EDMECommunity.bam.sorted.bam
 
-metabat2 -t 16 -a depth.txt -i Mockscaffolds.fasta -o MockBins --minContig 2000 --noAdd -v
+metabat2 -t 16 -a depth.txt -i Communityscaffolds.fasta -o EDMEBins --minContig 2000 --noAdd -v
 
 #renaming files which finish in .fa from metabat2 but need to finish .fasta for binspreader_protocol
-for file in MockBins*.fa; do mv $file $file"sta"; done
+for file in EDMEBins*.fa; do mv $file $file"sta"; done
 
-python scripts/convert_fasta_bins_to_tsv_format.py --o binning.tsv MockBins*
+python scripts/convert_fasta_bins_to_tsv_format.py --o binning.tsv EDMEBins*
 
 bin-refine Mock_assembly_graphwithscaffolds.gfa binning.tsv binspreader-Rcorr --bin-dist -t 16 -Rcorr | tee binspreader-Rcorr.log
 
@@ -49,5 +49,4 @@ python scripts wide2long.py, extract_fasta_bins.py, visualise_bin_dist.py, conve
 
 conda deactivate
 #delete intermediate files for cleanup
-
 
