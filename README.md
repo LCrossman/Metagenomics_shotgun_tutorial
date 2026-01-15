@@ -1,6 +1,5 @@
 # Metagenomics_shotgun_tutorial 
 
-Metagenomics | shotgun workflow tutorial | Data Science and Bioinformatics (BIO-7051B) 
 --- 
 
 Metagenomics | shotgun workflow tutorial 
