@@ -2,15 +2,13 @@
 
 --- 
 
-Metagenomics | shotgun workflow tutorial 
+Metagenomics | shotgun workflow tutorial | Data Science and Bioinformatics (BIO-7051B)
 
 <hr style="height:5px; border:none; color:#333; background-color:#333;">
 
 Currently *NOT FULLY WORKING* this is a draft only
 
 # Learning Objectives 
-
----
 
 - Understand the basics of shotgun Metagenomics analysis to go from reads -> metagenome bins
 - To investigate bins in terms of 'who is there' and 'how much'
