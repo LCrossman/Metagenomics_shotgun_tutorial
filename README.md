@@ -43,46 +43,52 @@ Step 2 (advanced)
 1. Raw Data
 You will find the metagenome assembly in the GitHub repository (CommunityScaffolds.fasta).  The paired-end
 short read data is [..]  You will need these three files for the next step.
-Fasta Assembly file:  CommunityScaffolds.fasta
-Short Reads R1:
-Short Reads R2:
+
+Fasta Assembly file:  CommunityScaffolds.fasta 
+Short Reads R1: 
+Short Reads R2: 
 
 3. Read Aligns
 You have already carried out read alignments in this module. You can either use these methods (since these
 reads have already been quality checked) or go through your previous methods to produce the required output
 of this stage - which is a *sorted* Bam file containing all the read alignments to the metagenome assembly.
-Script:
-Purpose:
-Output:
 
-4. Binning
+Script: 
+Purpose: 
+Output: 
+
+5. Binning
 Here you can use alternative binning software to investigate the metagenome.  We first use Metabat2 and
 some python scripts to identfy some bins.  We then use binspreader-R to improve the bins.
 
-Next you can use a newer machine learning binning algorithm (Sembin2) to bin the metagenome assembly.
-Script:
-Purpose: Metagenomic binning to extract single genomes from the mixture
-Outputs: For each binning program you will output some stats and bins as a set of genome fasta files
+Next you can use a newer machine learning binning algorithm (Sembin2) to bin the metagenome assembly. 
+
+Script: 
+Purpose: Metagenomic binning to extract single genomes from the mixture 
+Outputs: For each binning program you will output some stats and bins as a set of genome fasta files 
 
 5. Check Quality of the bins
 You will need to check the quality of all the bins using the program CheckM which outputs statistics such
 as the completeness and contamination.
-Script:
-Purpose: To identify the quality of each bin.
-Output Files:
+
+Script: 
+Purpose: To identify the quality of each bin. 
+Output Files: 
 
 7. Finally, you can identify taxa on the best quality bins using Kraken2.
-Script:
-Purpose:
-Output: 
 
-8. Make some conclusions about your results both technically and biologically.
+Script: 
+Purpose: 
+Output:  
 
-9. Plotting
-Scripts:
-Data: Your output from steps 4 or 5.
-Purpose:  Starting material for Group Project
-Output:  Result figures
+9. Make some conclusions about your results both technically and biologically. 
+
+10. Plotting
+
+Scripts: 
+Data: Your output from steps 4 or 5. 
+Purpose:  Starting material for Group Project 
+Output:  Result figures 
 
 <hr style="height:5px; border:none; color:#333; background-color:#333;"> 
 
