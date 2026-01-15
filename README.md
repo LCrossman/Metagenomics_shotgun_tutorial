@@ -45,7 +45,9 @@ You will find the metagenome assembly in the GitHub repository (CommunityScaffol
 short read data is [..]  You will need these three files for the next step.
 
 Fasta Assembly file:  CommunityScaffolds.fasta 
+
 Short Reads R1: 
+
 Short Reads R2: 
 
 3. Read Aligns
@@ -53,9 +55,11 @@ You have already carried out read alignments in this module. You can either use 
 reads have already been quality checked) or go through your previous methods to produce the required output
 of this stage - which is a *sorted* Bam file containing all the read alignments to the metagenome assembly.
 
-Script: 
-Purpose: 
-Output: 
+Script: ReadAligns/readalign_bam_and_sort.sh
+
+Purpose: Aligning illumina short reads to sam format, convert to bam and sort alignments
+
+Output: A sorted bam file containing read alignment data
 
 5. Binning
 Here you can use alternative binning software to investigate the metagenome.  We first use Metabat2 and
@@ -63,32 +67,44 @@ some python scripts to identfy some bins.  We then use binspreader-R to improve 
 
 Next you can use a newer machine learning binning algorithm (Sembin2) to bin the metagenome assembly. 
 
-Script: 
+Script: Binning/binning_workflow.sh
+
 Purpose: Metagenomic binning to extract single genomes from the mixture 
+
 Outputs: For each binning program you will output some stats and bins as a set of genome fasta files 
+
 
 5. Check Quality of the bins
 You will need to check the quality of all the bins using the program CheckM which outputs statistics such
 as the completeness and contamination.
 
-Script: 
+Script: checkm_quality.sh
+
 Purpose: To identify the quality of each bin. 
-Output Files: 
+
+Output Files: set of checkm output files
+
 
 7. Finally, you can identify taxa on the best quality bins using Kraken2.
 
-Script: 
-Purpose: 
-Output:  
+Script: XX
+
+Purpose: Identify Taxa for each bin fasta file
+
+Output: XX
 
 9. Make some conclusions about your results both technically and biologically. 
 
 10. Plotting
 
-Scripts: 
+Scripts: XX
+
 Data: Your output from steps 4 or 5. 
+
 Purpose:  Starting material for Group Project 
+
 Output:  Result figures 
+
 
 <hr style="height:5px; border:none; color:#333; background-color:#333;"> 
 
