@@ -1,7 +1,5 @@
 # Metagenomics_shotgun_tutorial 
 
---- 
-
 Metagenomics | shotgun workflow tutorial | Data Science and Bioinformatics (BIO-7051B)
 
 <hr style="height:5px; border:none; color:#333; background-color:#333;">
@@ -17,7 +15,6 @@ Currently *NOT FULLY WORKING* this is a draft only
 ---
 
 Background 
----
 
 You are provided with a paired-end Illumina short read dataset.  In this tutorial we will investigate the
 quality of the reads and align them to a provided metagenome assembly.  The assembly is provided for
@@ -42,8 +39,6 @@ Step 2 (advanced)
 <hr style="height:5px; border:none; color:#333; background-color:#333;"> 
 
 # Contents 
-
----
 
 1. Raw Data
 You will find the metagenome assembly in the GitHub repository (CommunityScaffolds.fasta).  The paired-end
@@ -92,8 +87,6 @@ Output:  Result figures
 <hr style="height:5px; border:none; color:#333; background-color:#333;"> 
 
 # Group Project Ideas 
-
----
 
 Take the analyses further with the following suggestions:
 
