@@ -26,33 +26,25 @@ from the dataset.  We then identify the quality of these bins and assign them to
 
 <hr style="height:5px; border:none; color:#333; background-color:#333;">
 
-Step 1 (begin at the session)
-It is *highly* recommended to run this on HPC because the binning software and checkM is tricky to install!
-
-- Try to run the full pipeline
-- Investigate the questions
-
-Step 2 (advanced) 
-
-- tackle the advanced questions
+Step 1 (Recommended to begin *before* the session because it takes ~ 20 minutes to align the reads)
 
 <hr style="height:5px; border:none; color:#333; background-color:#333;"> 
 
 # Contents 
 
-1. Raw Data
+1.1 Raw Data
 You will find the metagenome assembly in the GitHub repository (CommunityScaffolds.fasta).  The paired-end
 short read data is [..]  You will need these three files for the next step.
 
 Fasta Assembly file:  CommunityScaffolds.fasta 
 
-Short Reads R1: 
+Short Reads R1: EDME_R1.fastq.gz
 
-Short Reads R2: 
+Short Reads R2: EDME_R2.fastq.gz
 
-3. Read Aligns
-You have already carried out read alignments in this module. You can either use these methods (since these
-reads have already been quality checked) or go through your previous methods to produce the required output
+1.2 Read Aligns
+You have already carried out read alignments in this module. You can use either these scripts to align these reads (since these
+reads have already been quality checked) or go through your previous methods with BWA to produce the required output
 of this stage - which is a *sorted* Bam file containing all the read alignments to the metagenome assembly.
 
 Script: ReadAligns/readalign_bam_and_sort.sh
@@ -61,11 +53,16 @@ Purpose: Aligning illumina short reads to sam format, convert to bam and sort al
 
 Output: A sorted bam file containing read alignment data
 
-5. Binning
+<hr style="height:5px; border:none; color:#333; background-color:#333;"> 
+
+Step 2. Binning 
+- Try to run the binning pipeline
+- Investigate the questions
+It is *highly* recommended to run this on HPC because the binning software and checkM can be tricky to install!
+
+2.1 Binning with Metabat2 
 Here you can use alternative binning software to investigate the metagenome.  We first use Metabat2 and
 some python scripts to identfy some bins.  We then use binspreader-R to improve the bins.
-
-Next you can use a newer machine learning binning algorithm (Sembin2) to bin the metagenome assembly. 
 
 Script: Binning/binning_workflow.sh
 
@@ -73,8 +70,19 @@ Purpose: Metagenomic binning to extract single genomes from the mixture
 
 Outputs: For each binning program you will output some stats and bins as a set of genome fasta files 
 
+2.2 Binning with Semibin2
+Next you can use a newer machine learning binning algorithm (Sembin2) to bin the metagenome assembly. 
+Semibin2 use deep learning neural networks to bin the assembly contigs instead of rules and statistic based methods
 
-5. Check Quality of the bins
+Script: Binning/ML_binning_workflow.sh
+
+Purpose: Metagenomic binning to extract single genomes from a mixture using a machine learning method
+
+Outputs: Stats and bins as a set of genome fasta files
+
+Step 3. Bin Quality
+
+Check Quality of the bins
 You will need to check the quality of all the bins using the program CheckM which outputs statistics such
 as the completeness and contamination.
 
@@ -84,8 +92,7 @@ Purpose: To identify the quality of each bin.
 
 Output Files: set of checkm output files
 
-
-7. Finally, you can identify taxa on the best quality bins using Kraken2.
+Step 4. Now you can identify taxa on the best quality bins using Kraken2.
 
 Script: XX
 
@@ -93,9 +100,9 @@ Purpose: Identify Taxa for each bin fasta file
 
 Output: XX
 
-9. Make some conclusions about your results both technically and biologically. 
+Step 5. Make some conclusions about your results both technically and biologically. 
 
-10. Plotting
+Step 6. Optional - Plotting
 
 Scripts: XX
 
