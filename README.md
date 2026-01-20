@@ -26,7 +26,7 @@ from the dataset.  We then identify the quality of these bins and assign them to
 
 <hr style="height:5px; border:none; color:#333; background-color:#333;">
 
-# Step 1 
+# Step 1. - Read Alignments
 (Recommended to begin *before* the session because it takes ~ 20 minutes to align the reads)
 
 *Contents* 
@@ -54,7 +54,7 @@ Output: A sorted bam file containing read alignment data
 
 <hr style="height:5px; border:none; color:#333; background-color:#333;"> 
 
-Step 2. Binning 
+# Step 2. - Binning 
 - Try to run the binning pipeline
 - Investigate the questions
 It is *highly* recommended to run this on HPC because the binning software and checkM can be tricky to install!
@@ -79,7 +79,7 @@ Purpose: Metagenomic binning to extract single genomes from a mixture using a ma
 
 Outputs: Stats and bins as a set of genome fasta files
 
-Step 3. Bin Quality
+# Step 3. - Assess Bin Quality
 
 Check Quality of the bins
 You will need to check the quality of all the bins using the program CheckM which outputs statistics such
@@ -91,7 +91,8 @@ Purpose: To identify the quality of each bin.
 
 Output Files: set of checkm output files
 
-Step 4. Now you can identify taxa on the best quality bins using Kraken2.
+# Step 4. Identify Taxa
+Now you can identify taxa on the best quality bins using Kraken2.
 
 Script: XX
 
@@ -99,9 +100,10 @@ Purpose: Identify Taxa for each bin fasta file
 
 Output: XX
 
-Step 5. Make some conclusions about your results both technically and biologically. 
+# Step 5. Conclusions
+Make some conclusions about your results both technically and biologically. 
 
-Step 6. Optional - Plotting
+# Step 6. Optional - Plotting scripts
 
 Scripts: XX
 
@@ -121,13 +123,13 @@ Take the analyses further with the following suggestions:
 - Binning parameters:  Metabat2 has a large number of parameters that can be used to fine-tune your results.
 Read the short software manual for metabat2 to identify these parameters, alter some and identify using checkM whether the parameters improved the bin qualities or not.  Try to make some conclusions about why.
 
-- Consider the composition of the provided dataset.  You may be able to find out what it is from online from the organisms you identified.  There are particular features of this dataset that make it both (a) easier and (b) more difficult to bin.
+- Consider the composition of the provided dataset.  You may be able to find out what it is from online from the organisms you identified.  There are particular features of this dataset that make it both (a) easier and (b) more difficult to bin than some other datasets.
 What are these features?
 
 - Data Visualization (use R): Plot graphs of the data from step 4 (e.g. numbers of bins, length in bp of each fasta, N50) and/or step 5 (e.g. contamination, heterogeneity, completeness of different binning methods) using R ggplot2 or similar.  Do the results show any particular trends?
 
-- Long Reads:  You can find a dataset of long reads for the same data (Oxford Nanopore) in [..]  You can use these in the binning
-programs together with the short read assembly CommunityScaffolds.fasta as if they are metagenomic contigs.
+- Long Reads:  You can find a dataset of long reads for the same data (Oxford Nanopore) in [..]  You can use these in the Metabat2 binning
+program together with the short read assembly CommunityScaffolds.fasta as if they are metagenomic contigs.
 HINT: use linux to join the files together using:
 
 ```
@@ -136,7 +138,7 @@ cat CommunityScaffolds.fasta LongReads.fasta > TotalDataset.fasta
 
 Use checkM to identify if the long reads improved the results or not. 
 
-- Garden Data:  Ask me for three separate short read metagenomic datasets from a Professor's garden.  Is the microbial
+- Real world Garden Data:  Ask me for three separate short read metagenomic datasets from a Professor's garden.  Is the microbial
 composition in the three samples identical/similar or different?
 
 
