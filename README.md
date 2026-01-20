@@ -26,21 +26,20 @@ from the dataset.  We then identify the quality of these bins and assign them to
 
 <hr style="height:5px; border:none; color:#333; background-color:#333;">
 
-Step 1 (Recommended to begin *before* the session because it takes ~ 20 minutes to align the reads)
+# Step 1 
+(Recommended to begin *before* the session because it takes ~ 20 minutes to align the reads)
 
-<hr style="height:5px; border:none; color:#333; background-color:#333;"> 
-
-# Contents 
+*Contents* 
 
 1.1 Raw Data
 You will find the metagenome assembly in the GitHub repository (CommunityScaffolds.fasta).  The paired-end
-short read data is [..]  You will need these three files for the next step.
+short read data is at /gpfs/data/BIO-DBS/Session8/MG_workflow_2026/RawData/  You will need these three files for the next step.
 
 Fasta Assembly file:  CommunityScaffolds.fasta 
 
-Short Reads R1: EDME_R1.fastq.gz
+Short Reads R1: EDME200007170-1a_HCYHVDSXY_L2_1.fq.gz
 
-Short Reads R2: EDME_R2.fastq.gz
+Short Reads R2: EDME200007170-1a_HCYHVDSXY_L2_2.fq.gz
 
 1.2 Read Aligns
 You have already carried out read alignments in this module. You can use either these scripts to align these reads (since these
