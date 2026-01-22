@@ -8,6 +8,14 @@
 #SBATCH --mail-user=$(USER)
 
 module add mamba/25.3.1-0   #load mamba module to install binspreader
+#mamba is a faster version of anaconda/conda
+# ----------------------------------------------------------------------
+# mamba environment setup
+# To recreate the RNA-Seq_env conda environment used by this script:
+# mamba env create -n binning_env -f binmetabat.yaml
+
+# Make sure RNA-Seq_env.yml and RNA-Seq_env.txt are present in this directory.
+# -
 source /gpfs/software/hali/mamba/25.3.1-0/etc/profile.d/mamba.sh
 echo "successfully sourced paths"
 
