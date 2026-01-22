@@ -7,27 +7,17 @@
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=hrj09fju@uea.ac.uk
 
-# Load Anaconda module to enable Conda commands
-module load python/anaconda/2024.10/3.12.7
 
-# Initialize Conda
-source /gpfs/software/hali/python/anaconda/2024.10/etc/profile.d/conda.sh
-
-conda env create -f Metagenomics_quality_env.yaml
-
-conda activate Metagenomics_quality_env
-
+module add checkm/1.2.4
 
 # Define input/output directories
-GENOME_FASTA="/gpfs/home/hrj09fju/scratch/References/Communityscaffolds.fasta"
+GENOME_FASTA="/gpfs/home/hrj09fju/scratch/References/CommunityScaffolds.fasta"
 FASTQ_DIR="/gpfs/home/hrj09fju/scratch/Data/Community/FastQ/raw_data"
 INPUT_DIR="/gpfs/home/hrj09fju/scratch/Data/Community/ReadAligns"
-OUTPUT_DIR="/gpfs/home/hrj09fju/scratch/Data/Community/Bins"
+OUTPUT_DIR="/gpfs/home/hrj09fju/scratch/Data/Community/CheckQual"
 
 # Ensure OUTPUT_DIR exists
 mkdir -p "$OUTPUT_DIR"
-
-conda activate checkm
 
 #You would need to run this if you are running checkm locally
 #checkm data setRoot .
