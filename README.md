@@ -138,7 +138,7 @@ cat CommunityScaffolds.fasta LongReads.fasta > TotalDataset.fasta
 
 Use checkM to identify if the long reads improved the results or not. 
 
-- Real world Garden Data:  Ask me for three separate short read metagenomic datasets from a Professor's garden.  Is the microbial
+- Real world Garden Data:  Ask me for three separate short read metagenomic datasets from soil in a Professor's garden.  Is the microbial
 composition in the three samples identical/similar or different?
 
 
