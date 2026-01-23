@@ -94,11 +94,11 @@ Output Files: set of checkm output files
 # Step 4. Identify Taxa
 Now you can identify taxa on the best quality bins using Kraken2.
 
-Script: XX
+Script: taxa_classify_bins.sh
 
 Purpose: Identify Taxa for each bin fasta file
 
-Output: XX
+Output: Bin reports - for each bin there will be a taxa report with abundance from Kraken/Bracken
 
 # Step 5. Conclusions
 Make some conclusions about your results both technically and biologically. 
