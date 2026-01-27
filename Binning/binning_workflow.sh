@@ -7,28 +7,40 @@
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=$(USER)
 
+
+source /gpfs/software/hali/mamba/25.3.1-0/etc/profile.d/mamba.sh
 module add mamba/25.3.1-0   #load mamba module to install binspreader
 #mamba is a faster version of anaconda/conda
+# however, the binning software metabat2 uses boost C++ libraries which takes a really long time (~ 10 mins) to install on HPC
+# what we can do instead is to use conda-pack to create an archived environment.  This archived environment
+# is only for HPC and you would have to use mamba to fully build the environment on any other system
 # ----------------------------------------------------------------------
+# setup for HPC using conda-pack
+# 1. You will need the packed (binning_env.tar.gz) file
+# 2. source /gpfs/software/hali/mamba/25.3.1-0/etc/profile.d/mamba.sh
+# 3. module add mamba/25.3.1
+# 4. mkdir -p my_binning # you need to create the environment inside a directory or there will be a huge amount of files in your home dir
+# 5. tar -xvf newbiopython.tar.gz -C my_binning
+# 6. source my_binning/bin/activate
+#
+# For use in any other environment you will need to setup with the usual method 
 # mamba environment setup
 # To recreate the RNA-Seq_env conda environment used by this script:
 # mamba env create -n binning_env -f binmetabat.yaml
-
-# Make sure RNA-Seq_env.yml and RNA-Seq_env.txt are present in this directory.
 # -
-source /gpfs/software/hali/mamba/25.3.1-0/etc/profile.d/mamba.sh
-echo "successfully sourced paths"
 
-# initialize Mamba
-mamba activate binning_env
-module add python/anaconda/2024.10/3.12.7
-echo "environment activated"
+mkdir -p ~/my_binning
+tar -xvf binning_env.tar.gz -C my_binning
+source my_binning/bin/activate
+
+echo "successfully created environment from paths"
+
 
 # Define input/output directories
-GENOME_FASTA="/gpfs/home/hrj09fju/scratch/References/CommunityScaffolds.fasta"
-FASTQ_DIR="/gpfs/home/hrj09fju/scratch/Data/Community/FastQ/raw_data"
-INPUT_DIR="/gpfs/home/hrj09fju/scratch/Data/Community/ReadAligns"
-OUTPUT_DIR="/gpfs/home/hrj09fju/scratch/Data/Community/Bins"
+GENOME_FASTA="~/scratch/Data/References/CommunityScaffolds.fasta"
+FASTQ_DIR="/gpfs/data/BIO-DSB/Session8/FastQ/"
+INPUT_DIR="~/scratch/Data/Community/ReadAligns"
+OUTPUT_DIR="~/scratch/Data/Community/Bins"
 
 # Ensure OUTPUT_DIR exists
 mkdir -p "$OUTPUT_DIR"
@@ -44,15 +56,15 @@ echo "completed metabat2 binning process"
 for file in EDMEBins*.fa; do mv $file $file"sta"; done
 
 echo "renamed files for converting to tab delimited format
-python scripts/convert_fasta_bins_to_tsv_format.py --o binning.tsv EDMEBins*
+convert_fasta_bins_to_tsv_format.py --o binning.tsv EDMEBins*
 
 echo "refining current bins using the metagenomics assembly graph with our newly calculated binning.tsv"
 bin-refine CommunityAssembly_graphwithscaffolds.gfa binning.tsv binspreader-Rcorr --bin-dist -t 16 -Rcorr | tee binspreader-Rcorr.log
 
 echo "bin refining process complete"
-python scripts/visualize_bin_dist.py -i binspreader-Rcorr/bin_dist.tsv -o result/dendrogram.png
+visualize_bin_dist.py -i binspreader-Rcorr/bin_dist.tsv -o result/dendrogram.png
 
-for FOLDER in binspreader-Rcorr ; do python scripts/extract_fasta_bins.py -b binning.tsv -i CommunityScaffolds.fasta -o $FOLDER/bins/ ; done
+for FOLDER in binspreader-Rcorr ; do extract_fasta_bins.py -b binning.tsv -i CommunityScaffolds.fasta -o $FOLDER/bins/ ; done
 echo "bin fasta files extracted"
 #binspreader
 #python scripts wide2long.py, extract_fasta_bins.py, visualise_bin_dist.py, convert_fasta_bins_to_tsv_format.py
