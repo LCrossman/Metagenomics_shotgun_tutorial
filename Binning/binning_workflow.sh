@@ -7,29 +7,29 @@
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=hrj09fju@uea.ac.uk
 
-module load python/anaconda/2024.10/3.12.7  # check path and load Anaconda module to enable Conda commands
+module add mamba/25.3.1
+source /gpfs/software/hali/mamba/25.3.1-0/etc/profile.d/mamba.sh
+mamba create -n unpackenv
+mamba activate unpackenv
 
+# mkdir -p scratch/binning_env
+# tar -xvf binning_env.tar.gz -C scratch/binning_env
+# source scratch/binning_env/bin/activate
 
-# Initialize Conda
-#source /gpfs/software/hali/python/anaconda/2024.10/etc/profile.d/conda.sh
-
-#conda env create -f Metagenomics_env.yaml
-
-#conda activate Metagenomics_env
+source /gpfs/data/BIO-DSB/Session7/MG_workshop_2026/Binning_env/bin/activate
 
 
 # Define input/output directories
-GENOME_FASTA="/gpfs/home/hrj09fju/scratch/References/Communityscaffolds.fasta"
-FASTQ_DIR="/gpfs/home/hrj09fju/scratch/Data/Community/FastQ/raw_data"
-INPUT_DIR="/gpfs/home/hrj09fju/scratch/Data/Community/ReadAligns"
-OUTPUT_DIR="/gpfs/home/hrj09fju/scratch/Data/Community/Bins"
+GENOME_FASTA="/gpfs/data/BIO-DSB/Session7/MG_workshop_2026/Communityscaffolds.fasta"
+FASTQ_DIR="/gpfs/data/BIO-DSB/Session7/MG_workshop_2026/FASTQ/"
+INPUT_DIR="$HOME/scratch/Data/Community/ReadAligns"
+SCRIPT_DIR="/gpfs/data/BIO-DSB/Session7/MG_workshop_2026/scripts/"
+OUTPUT_DIR="$HOME/scratch/Data/Community/Bins"
 
 # Ensure OUTPUT_DIR exists
 mkdir -p "$OUTPUT_DIR"
 
-module load metabat2
-
-jgi_summarize_bam_contig_depths --referenceFasta Communityscaffolds.fasta --outputDepth depth.txt EDMECommunity.bam.sorted.bam
+jgi_summarize_bam_contig_depths --referenceFasta Communityscaffolds.fasta --outputDepth depth.txt $INPUT_DIR/Community.bam.sorted.bam
 
 metabat2 -t 16 -a depth.txt -i Communityscaffolds.fasta -o EDMEBins --minContig 2000 --noAdd -v
 
@@ -40,12 +40,11 @@ python scripts/convert_fasta_bins_to_tsv_format.py --o binning.tsv EDMEBins*
 
 bin-refine Mock_assembly_graphwithscaffolds.gfa binning.tsv binspreader-Rcorr --bin-dist -t 16 -Rcorr | tee binspreader-Rcorr.log
 
-python scripts/visualize_bin_dist.py -i binspreader-Rcorr/bin_dist.tsv -o result/dendrogram.png
+python $SCRIPT_DIR/visualize_bin_dist.py -i binspreader-Rcorr/bin_dist.tsv -o result/dendrogram.png
 
-for FOLDER in binspreader-Rcorr ; do python scripts/extract_fasta_bins.py -b $FOLDER/binning.tsv -i Mockscaffolds.fasta -o $FOLDER/bins/ ; done
+for FOLDER in binspreader-Rcorr ; do python $SCRIPT_DIR/extract_fasta_bins.py -b $FOLDER/binning.tsv -i Mockscaffolds.fasta -o $FOLDER/bins/ ; done
 
-binspreader
-python scripts wide2long.py, extract_fasta_bins.py, visualise_bin_dist.py, convert_fasta_bins_to_tsv_format.py
+#python scripts wide2long.py, extract_fasta_bins.py, visualise_bin_dist.py, convert_fasta_bins_to_tsv_format.py
 
 conda deactivate
 #delete intermediate files for cleanup
