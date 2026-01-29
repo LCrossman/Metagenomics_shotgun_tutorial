@@ -5,24 +5,20 @@
 #SBATCH -o /gpfs/home/hrj09fju/scratch/Data/Metagenomics_tutorial/ReadAligns/Output_Messages/Metagenomics_tutorial-%a.out
 #SBATCH -e /gpfs/home/hrj09fju/scratch/Data/Metagenomics_tutorial/ReadAligns/Error_Messages/Metagenomics_tutorial-%a.err
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=hrj09fju@uea.ac.uk
+#SBATCH --mail-user=#<your.email@address>
 
-module load python/anaconda/2024.10/3.12.7  # Load Anaconda module to enable Conda commands
+#module load mamba/25.3.1-0  # Load mamba module (faster version of anaconda)
+module load bowtie2/2.5.4
+module load samtools/1.21
 
+#mamba env create -f Metagenomics_env.yaml
 
-# Initialize Conda
-#source /gpfs/software/hali/python/anaconda/2024.06/etc/profile.d/conda.sh
-
-#conda env create -f Metagenomics_env.yaml
-
-#conda activate Metagenomics_env
-
-#export PATH=
+#mamba activate Metagenomics_env
 
 # Define input/output directories
-GENOME_FASTA="/gpfs/home/hrj09fju/scratch/References/Communityscaffolds.fasta"
-FASTQ_DIR="/gpfs/home/hrj09fju/scratch/Data/Community/FastQ/raw_data"
-OUTPUT_DIR="/gpfs/home/hrj09fju/scratch/Data/Community/ReadAligns"
+GENOME_FASTA="/gpfs/data/BIO-DSB/Session8/MG_Workshop_2026/Communityscaffolds.fasta"
+FASTQ_DIR="/gpfs/data/BIO-DSB/Session8/MG_Workshop_2026/FASTQ/"
+OUTPUT_DIR="/gpfs/home/hrj09fju/scratch/Data/Community/ReadAligns/"
 
 # Ensure OUTPUT_DIR exists
 mkdir -p "$OUTPUT_DIR"
@@ -34,7 +30,7 @@ samtools view -@ 16 Community_aligned.sam > Community_aligned.bam
 samtools sort -@ 16 Community_aligned.bam -o Community_aligned.bam.sorted.bam
 samtools index Community_aligned.bam.sorted.bam
 
-#conda deactivate
+#mamba deactivate
 
 
 #delete intermediate files for cleanup

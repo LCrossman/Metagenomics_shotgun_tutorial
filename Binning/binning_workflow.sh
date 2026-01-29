@@ -2,20 +2,27 @@
 #SBATCH --mem=10G
 #SBATCH --cpus-per-task=16
 #SBATCH --job-name=metagenomics_tutorial
-#SBATCH -o /gpfs/home/hrj09fju/scratch/Data/Metagenomics_tutorial/ReadAligns/Output_Messages/Metagenomics_tutorial-%a.out
-#SBATCH -e /gpfs/home/hrj09fju/scratch/Data/Metagenomics_tutorial/ReadAligns/Error_Messages/Metagenomics_tutorial-%a.err
+#SBATCH -o /gpfs/home/hrj09fju/scratch/Data/Metagenomics_tutorial/Binning/Output_Messages/Metagenomics_tutorial-%a.out
+#SBATCH -e /gpfs/home/hrj09fju/scratch/Data/Metagenomics_tutorial/Binning/Error_Messages/Metagenomics_tutorial-%a.err
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=hrj09fju@uea.ac.uk
+#SBATCH --mail-user=$(USER)
 
 module add mamba/25.3.1
 source /gpfs/software/hali/mamba/25.3.1-0/etc/profile.d/mamba.sh
 mamba create -n unpackenv
 mamba activate unpackenv
 
-# mkdir -p scratch/binning_env
-# tar -xvf binning_env.tar.gz -C scratch/binning_env
-# source scratch/binning_env/bin/activate
+# mamba is a faster version of anaconda/conda
+# however, the binning software metabat2 uses boost C++ libraries which takes a really long time (~ 10 mins) to install on HPC
+# what we can do instead is to use conda-pack to create an archived environment.  This archived environment
+# is only for HPC and you would have to use mamba to fully build the environment on any other system
 
+# to build the env for yourself use this after copying /gpfs/data/BIO-DSB/Session7/MG_workflow_2026/binning_env.tar.gz to your scratch
+# mkdir -p scratch/my_binning_env
+# tar -xvf scratch/binning_env.tar.gz -C scratch/my_binning_env
+# source scratch/my_binning_env/bin/activate
+
+# to build straightaway from the BIO-DSB dir - fastest but the environemnt will be read-only
 source /gpfs/data/BIO-DSB/Session7/MG_workshop_2026/Binning_env/bin/activate
 
 
@@ -26,26 +33,41 @@ INPUT_DIR="$HOME/scratch/Data/Community/ReadAligns"
 SCRIPT_DIR="/gpfs/data/BIO-DSB/Session7/MG_workshop_2026/scripts/"
 OUTPUT_DIR="$HOME/scratch/Data/Community/Bins"
 
+# For use in any other environment you will need to setup with the usual method 
+# mamba environment setup 
+# mamba env create -n binning_env -f leanbinmetabat.yaml
+
+echo "successfully created environment from paths"
+
 # Ensure OUTPUT_DIR exists
 mkdir -p "$OUTPUT_DIR"
 
-jgi_summarize_bam_contig_depths --referenceFasta Communityscaffolds.fasta --outputDepth depth.txt $INPUT_DIR/Community.bam.sorted.bam
 
-metabat2 -t 16 -a depth.txt -i Communityscaffolds.fasta -o EDMEBins --minContig 2000 --noAdd -v
+jgi_summarize_bam_contig_depths --referenceFasta $INPUT_DIR/Communityscaffolds.fasta --outputDepth depth.txt $INPUT_DIR/Community_aligned.bam.sorted.bam
+
+echo "defined directories, commencing depth statistics calculation"
+
+metabat2 -t 16 -a $OUTPUT_DIR/depth.txt -i $INPUT_DIR/CommunityScaffolds.fasta -o $OUTPUT_DIR/EDMEBins --minContig 2000 --noAdd -v
+echo "completed metabat2 binning process"
 
 #renaming files which finish in .fa from metabat2 but need to finish .fasta for binspreader_protocol
-for file in EDMEBins*.fa; do mv $file $file"sta"; done
+for file in $OUTPUT_DIR/EDMEBins*.fa; do mv $file $file"sta"; done
 
-python scripts/convert_fasta_bins_to_tsv_format.py --o binning.tsv EDMEBins*
+echo "renamed files for converting to tab delimited format
+python $SCRIPT_DIR/convert_fasta_bins_to_tsv_format.py --o binning.tsv $OUTPUT_DIR/EDMEBins*
 
-bin-refine Mock_assembly_graphwithscaffolds.gfa binning.tsv binspreader-Rcorr --bin-dist -t 16 -Rcorr | tee binspreader-Rcorr.log
+echo "refining current bins using the metagenomics assembly graph with our newly calculated binning.tsv"
+bin-refine CommunityAssembly_graphwithscaffolds.gfa binning.tsv binspreader-Rcorr --bin-dist -t 16 -Rcorr | tee binspreader-Rcorr.log
 
+<<<<<<< HEAD
 python $SCRIPT_DIR/visualize_bin_dist.py -i binspreader-Rcorr/bin_dist.tsv -o result/dendrogram.png
 
-for FOLDER in binspreader-Rcorr ; do python $SCRIPT_DIR/extract_fasta_bins.py -b $FOLDER/binning.tsv -i Mockscaffolds.fasta -o $FOLDER/bins/ ; done
+for FOLDER in binspreader-Rcorr ; do python $SCRIPT_DIR/extract_fasta_bins.py -b $FOLDER/binning.tsv -i $INPUT_DIR/CommuityScaffolds.fasta -o $FOLDER/bins/ ; done
 
-#python scripts wide2long.py, extract_fasta_bins.py, visualise_bin_dist.py, convert_fasta_bins_to_tsv_format.py
+echo "bin refining process complete"
 
-conda deactivate
-#delete intermediate files for cleanup
+# these scripts could be of interest to look into in more depth
+#python scripts wide2long.py, extract_fasta_bins.py, convert_fasta_bins_to_tsv_format.py
+
+mamba deactivate
 
