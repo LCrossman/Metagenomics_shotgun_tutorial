@@ -11,6 +11,9 @@
 ## R will generate NA values for those contigs without a binID and we will assign those to 
 ## a label of Unbinned
 
+## Can you go ahead and plot some of the Semibin2 data?
+## HINT: check the output of the semibin script
+
 require(ggplot2)
 require(RColorBrewer)
 
@@ -117,3 +120,4 @@ dev.off()
 #
 # Importantly: 
 # What can this tell us about the organism abundance in the bins?
+
