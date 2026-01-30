@@ -57,7 +57,7 @@ echo "renamed files for converting to tab delimited format
 python $SCRIPT_DIR/convert_fasta_bins_to_tsv_format.py --o binning.tsv $OUTPUT_DIR/EDMEBins*
 
 echo "refining current bins using the metagenomics assembly graph with our newly calculated binning.tsv"
-bin-refine CommunityAssembly_graphwithscaffolds.gfa binning.tsv binspreader-Rcorr --bin-dist -t 16 -Rcorr | tee binspreader-Rcorr.log
+bin-refine CommunityScaffolds_assembly.gfa binning.tsv binspreader-Rcorr --bin-dist -t 16 -Rcorr | tee binspreader-Rcorr.log
 
 <<<<<<< HEAD
 python $SCRIPT_DIR/visualize_bin_dist.py -i binspreader-Rcorr/bin_dist.tsv -o result/dendrogram.png
