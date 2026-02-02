@@ -1,5 +1,6 @@
 #!/bin/bash -e
 #SBATCH --qos=bio-ds
+#SBATCH -p bio-ds
 #SBATCH --mem=10G
 #SBATCH --cpus-per-task=16
 #SBATCH --job-name=metagenomics_tutorial
