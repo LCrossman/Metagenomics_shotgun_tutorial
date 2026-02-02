@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/bin/bash -e
+#SBATCH --qos=bio-ds # User group
+#SBATCH -p bio-ds  
 #SBATCH --mem=10G
 #SBATCH --cpus-per-task=16
 #SBATCH --job-name=metagenomics_tutorial
@@ -11,10 +13,10 @@
 module add checkm/1.2.4
 
 # Define input/output directories
-GENOME_FASTA="/gpfs/home/hrj09fju/scratch/References/CommunityScaffolds.fasta"
-FASTQ_DIR="/gpfs/home/hrj09fju/scratch/Data/Community/FastQ/raw_data"
-INPUT_DIR="/gpfs/home/hrj09fju/scratch/Data/Community/ReadAligns"
-OUTPUT_DIR="/gpfs/home/hrj09fju/scratch/Data/Community/CheckQual"
+GENOME_FASTA="$HOME/scratch/References/CommunityScaffolds.fasta"
+FASTQ_DIR="$HOME/scratch/Data/Community/FastQ/raw_data"
+INPUT_DIR="$HOME/scratch/Data/Community/ReadAligns"
+OUTPUT_DIR="$HOME/scratch/Data/Community/CheckQual"
 
 # Ensure OUTPUT_DIR exists
 mkdir -p "$OUTPUT_DIR"
@@ -22,7 +24,7 @@ mkdir -p "$OUTPUT_DIR"
 #You would need to run this if you are running checkm locally
 #checkm data setRoot .
 
-for FOLDER in binspreader-Rcorr ; do checkm lineage_wf -t 16 -x fasta --tab_table -f $FOLDER/checkm_result.tsv $FOLDER/bins $FOLDER/checkm ; done
+for FOLDER in binspreader-Rcorr ; do checkm lineage_wf -t 16 -x fasta --tab_table -f "$FOLDER/checkm_result.tsv" "$FOLDER/bins" "$FOLDER/checkm" ; done
 
 
 #Requirements
