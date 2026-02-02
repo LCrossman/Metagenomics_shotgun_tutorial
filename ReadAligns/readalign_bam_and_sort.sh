@@ -1,9 +1,11 @@
-#!/bin/bash
+#!/bin/bash -e
+#SBATCH --qos=bio-ds
+#SBATCH -p bio-ds
 #SBATCH --mem=10G
 #SBATCH --cpus-per-task=16
-#SBATCH --job-name=metagenomics_tutorial
-#SBATCH -o /gpfs/home/hrj09fju/scratch/Data/Metagenomics_tutorial/ReadAligns/Output_Messages/Metagenomics_tutorial-%a.out
-#SBATCH -e /gpfs/home/hrj09fju/scratch/Data/Metagenomics_tutorial/ReadAligns/Error_Messages/Metagenomics_tutorial-%a.err
+#SBATCH --job-name=metagenomics_tutorial_readaligns
+#SBATCH -o /gpfs/home/%u/scratch/Data/Metagenomics_tutorial/ReadAligns/Output_Messages/Metagenomics_tutorial-%a.out
+#SBATCH -e /gpfs/home/%u/scratch/Data/Metagenomics_tutorial/ReadAligns/Error_Messages/Metagenomics_tutorial-%a.err
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=#<your.email@address>
 
@@ -16,9 +18,9 @@ module load samtools/1.21
 #mamba activate Metagenomics_env
 
 # Define input/output directories
-GENOME_FASTA="/gpfs/data/BIO-DSB/Session8/MG_Workshop_2026/Communityscaffolds.fasta"
-FASTQ_DIR="/gpfs/data/BIO-DSB/Session8/MG_Workshop_2026/FASTQ/"
-OUTPUT_DIR="/gpfs/home/hrj09fju/scratch/Data/Community/ReadAligns/"
+GENOME_FASTA="/gpfs/data/BIO-DSB/Session7/MG_Workshop_2026/Communityscaffolds.fasta"
+FASTQ_DIR="/gpfs/data/BIO-DSB/Session7/MG_Workshop_2026/FASTQ/"
+OUTPUT_DIR="$HOME/scratch/Data/Community/ReadAligns/"
 
 # Ensure OUTPUT_DIR exists
 mkdir -p "$OUTPUT_DIR"
