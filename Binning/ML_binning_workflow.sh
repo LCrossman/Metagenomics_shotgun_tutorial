@@ -10,14 +10,10 @@
 #SBATCH -j "ML_binning"
 #SBATCH --mail-user=#<your.email@address>
 
-module load mamba/25.3.1-0
-
-mamba env create -f ML_binning_env.yaml
-
-mamba activate ML_binning_env
+module load SemiBin2/2.2.0
 echo "environment successfully created"
 
-semibin2 single_easy_bin -i CommunityScaffolds.fasta --environment global -b Community_aligned.bam.sorted.bam -o semibinout --verbose
+SemiBin single_easy_bin -i CommunityScaffolds.fasta --environment global -b Community_aligned.bam.sorted.bam -o semibinout --verbose
 
 
 
