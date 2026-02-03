@@ -26,7 +26,7 @@ mamba activate unpackenv
 # source scratch/my_binning_env/bin/activate
 
 # to build straightaway from the BIO-DSB dir - fastest but the environemnt will be read-only
-source /gpfs/data/BIO-DSB/Session7/MG_workshop_2026/Binning_env/bin/activate
+source /gpfs/data/BIO-DSB/Session7/MG_workshop_2026/Binning_env2/bin/activate
 
 
 # Define input/output directories
