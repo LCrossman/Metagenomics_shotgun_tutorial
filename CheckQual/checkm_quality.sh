@@ -3,7 +3,7 @@
 #SBATCH -p bio-ds  
 #SBATCH --mem=10G
 #SBATCH --cpus-per-task=16
-#SBATCH --job-name=metagenomics_tutorial
+#SBATCH --job-name=metagenomics_tutorial_qual
 #SBATCH -o /gpfs/home/hrj09fju/scratch/Data/Metagenomics_tutorial/ReadAligns/Output_Messages/Metagenomics_tutorial-%a.out
 #SBATCH -e /gpfs/home/hrj09fju/scratch/Data/Metagenomics_tutorial/ReadAligns/Error_Messages/Metagenomics_tutorial-%a.err
 #SBATCH --mail-type=ALL
@@ -23,9 +23,9 @@ mkdir -p "$OUTPUT_DIR"
 
 #You would need to run this if you are running checkm locally
 #checkm data setRoot .
-
-for FOLDER in binspreader-Rcorr ; do checkm lineage_wf -t 16 -x fasta --tab_table -f "$FOLDER/checkm_result.tsv" "$FOLDER/bins" "$FOLDER/checkm" ; done
-
+gunzip "$OUTPUT_DIR/semibinout/*gz"
+for file in "$OUTPUT_DIR"/binspreader-Rcorr/*fasta ; do checkm lineage_wf -t 16 -x fasta --tab_table -f "$file/checkm_result.tsv" "$file/bins" "$file/checkm" ; done
+for file in "$OUTPUT_DIR"/semibinout/*fa; do checkm lineage_wf -t 16 -x fa --tab_table -f "$OUTPUT_DIR/$file"/checkm_result.tsv "$OUTPUT_DIR/$file"/bins" "$OUTPUT_DIR/$file"/checkm ;done 
 
 #Requirements
 #checkm
