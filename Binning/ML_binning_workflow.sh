@@ -17,7 +17,7 @@ mamba env create -f ML_binning_env.yaml
 mamba activate ML_binning_env
 echo "environment successfully created"
 
-semibin2 single_easy_bin -i Mockscaffolds.fasta --environment global -b Mocked.bam.sorted.bam -o semibinout --verbose
+semibin2 single_easy_bin -i CommunityScaffolds.fasta --environment global -b Community_aligned.bam.sorted.bam -o semibinout --verbose
 
 
 
