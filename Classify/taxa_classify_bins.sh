@@ -25,7 +25,7 @@ echo "environment activated"
 
 # Define input/output directories
 GENOME_FASTA="$HOME/scratch/References/CommunityScaffolds.fasta"
-DB_DIR="/gpfs/data/BIO-DSB/Session8/MG_workshop_2026/Classify/k2_pluspf_16GB_20251015"
+DB_DIR="/gpfs/data/BIO-DSB/Session7/MG_workshop_2026/Classify/k2_pluspf_16GB_20251015"
 BINS_DIR="$HOME/scratch/Data/bins"
 OUTPUT_DIR="$HOME/scratch/Data/Classify"
 
