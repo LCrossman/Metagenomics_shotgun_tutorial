@@ -103,9 +103,9 @@ Output: Bin reports - for each bin there will be a taxa report with abundance fr
 # Step 5. Conclusions
 Make some conclusions about your results both technically and biologically. 
 
-# Step 6. Optional - Plotting scripts
+# Step 6. Optional - Plotting scripts in R programming language
 
-Scripts: XX
+Scripts: Optional_plotting/plot_metabat_statistics.R
 
 Data: Your output from steps 4 or 5. 
 
@@ -138,7 +138,7 @@ cat CommunityScaffolds.fasta LongReads.fasta > TotalDataset.fasta
 
 Use checkM to identify if the long reads improved the results or not. 
 
-- Real world Garden Data:  Ask me for three separate short read metagenomic datasets from soil in a Professor's garden.  Is the microbial
+- Real world Garden Data:  Ask me for the link to three separate short read metagenomic datasets from soil in a Professor's garden.  Is the microbial
 composition in the three samples identical/similar or different?
 
 
