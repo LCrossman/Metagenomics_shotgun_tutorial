@@ -4,10 +4,10 @@
 #SBATCH --mem=30G
 #SBATCH --cpus-per-task=16
 #SBATCH --job-name=metagenomics_tutorial_classification
-#SBATCH -o /gpfs/home/hrj09fju/scratch/Data/Metagenomics_tutorial/Classify/Output_Messages/Metagenomics_tutorial-%a.out
-#SBATCH -e /gpfs/home/hrj09fju/scratch/Data/Metagenomics_tutorial/Classify/Error_Messages/Metagenomics_tutorial-%a.err
+#SBATCH -o /gpfs/home/%u/scratch/Data/Metagenomics_tutorial/Classify/Output_Messages/Metagenomics_tutorial-%a.out
+#SBATCH -e /gpfs/home/%u/scratch/Data/Metagenomics_tutorial/Classify/Error_Messages/Metagenomics_tutorial-%a.err
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=$(USER)
+#SBATCH --mail-user=#<your.email@address>
 
 module add mamba/25.3.1-0   #load mamba module to install binspreader
 #mamba is a faster version of anaconda/conda
