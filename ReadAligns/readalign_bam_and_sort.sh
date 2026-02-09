@@ -18,20 +18,27 @@ module load samtools/1.21
 #mamba activate Metagenomics_env
 
 # Define input/output directories
-GENOME_FASTA="/gpfs/data/BIO-DSB/Session7/MG_Workshop_2026/Communityscaffolds.fasta"
-FASTQ_DIR="/gpfs/data/BIO-DSB/Session7/MG_Workshop_2026/FASTQ/"
+GENOME_FASTA="/gpfs/data/BIO-DSB/Session7/MG_workshop_2026/CommunityScaffolds.fasta"
+FASTQ_DIR="/gpfs/data/BIO-DSB/Session7/MG_workshop_2026/FASTQ/"
 OUTPUT_DIR="$HOME/scratch/Data/Community/ReadAligns/"
 
 # Ensure OUTPUT_DIR exists
 mkdir -p "$OUTPUT_DIR"
+cp "$GENOME_FASTA" "$OUTPUT_DIR"
 
-bowtie2-build Communityscaffolds.fasta Communityscaffolds.fasta
-bowtie2 -p 16 -x Communityscaffolds.fasta -1 EDME200007170-1a_HCYHVDSXY_L2_1.fq.gz -2 EDME200007170-1a_HCYHVDSXY_L2_2.fq.gz -S Community_aligned.sam
+#Here we index the metagenome assembly for use with the read alignment tool bowtie2
+bowtie2-build "$OUTPUT_DIR"CommunityScaffolds.fasta "$OUTPUT_DIR"CommunityScaffolds.fasta
 
-samtools view -@ 16 Community_aligned.sam > Community_aligned.bam
+#here we align the reads to the reference assembly, converting directly to bam format using a pipe to
+#avoid saving a very large intermediate file to disk
+bowtie2 -p 16 -x "$OUTPUT_DIR"CommunityScaffolds.fasta -1 "$FASTQ_DIR"EDME200007170-1a_HCYHVDSXY_L2_1.fq.gz -2 "$FASTQ_DIR"EDME200007170-1a_HCYHVDSXY_L2_2.fq.gz | samtools view -@ 16 -bS -  > Community_aligned.bam
+
+echo "saved alignment file directly to bam file, sorting..."
 samtools sort -@ 16 Community_aligned.bam -o Community_aligned.bam.sorted.bam
 samtools index Community_aligned.bam.sorted.bam
+echo "aligned reads, sorted and indexed"
 
+rm Community_aligned.bam
 #mamba deactivate
 
 
