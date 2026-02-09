@@ -7,13 +7,14 @@
 #SBATCH -o /gpfs/home/%u/scratch/Data/Metagenomics_tutorial/Binning/Output_Messages/Metagenomics_tutorial-%a.out
 #SBATCH -e /gpfs/home/%u/scratch/Data/Metagenomics_tutorial/Binning/Error_Messages/Metagenomics_tutorial-%a.err
 #SBATCH --mail-type=ALL
-#SBATCH -j "ML_binning"
 #SBATCH --mail-user=#<your.email@address>
 
 module load SemiBin2/2.2.0
 echo "environment successfully created"
+GENOME_FASTA="$HOME/Metagenomics_shotgun_tutorial/Binning/CommunityScaffolds.fasta"
+INPUT_DIR="$HOME/Metagenomics_shotgun_tutorial/ReadAligns/"
 
-SemiBin single_easy_bin -i CommunityScaffolds.fasta --environment global -b Community_aligned.bam.sorted.bam -o semibinout --verbose
+SemiBin single_easy_bin -i "$GENOME_FASTA" --environment global -b "$INPUT_DIR"Community_aligned.bam.sorted.bam -o semibinout --verbose
 
 
 
