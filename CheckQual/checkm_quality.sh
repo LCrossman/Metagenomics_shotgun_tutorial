@@ -17,8 +17,8 @@ GENOME_FASTA="$HOME/Metgenomics_shotgun_tutorial/Binning/CommunityScaffolds.fast
 FASTQ_DIR="/gpfs/data/BIO-DSB/Session7/MG_workshop_tutorial/FASTQ/"
 INPUT_DIR_METABAT="$HOME/scratch/Data/Community/Bins/"
 INPUT_DIR_SEMIBIN="$HOME/Metagenomics_shotgun_tutorial/Binning/semibinout/output_bins/"
-INPUT_DIR="$HOME/Metagenomics_shotgun_tutorial/CheckQual/bins"
-OUTPUT_DIR="$HOME/Metagenomics_shotgun_tutorial/CheckQual/checkm_output/"
+INPUT_DIR="$HOME/Metagenomics_shotgun_tutorial/CheckQual/bins/"
+OUTPUT_DIR="checkm_output/"
 
 
 # Ensure OUTPUT_DIR exists
@@ -34,7 +34,7 @@ find "$INPUT_DIR_SEMIBIN" -maxdepth 1 -name "*.gz" -exec gunzip {} \;
 cp "$INPUT_DIR_SEMIBIN"*fa "$INPUT_DIR"
 for file in "$INPUT_DIR"*fa; do mv $file $file"sta"; done
 
-for file in "$INPUT_DIR"* ; do checkm lineage_wf -t 16 -x fasta --reduced_tree --tab_table -f "$file".checkm_result.tsv "$INPUT_DIR" "$OUTPUT_DIR"$file.checkm ; done
+checkm lineage_wf -t 16 -x fasta --reduced_tree --tab_table -f checkm_result.tsv "$INPUT_DIR" "$OUTPUT_DIR"
 #Requirements
 #checkm
 #checkm_database
