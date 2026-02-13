@@ -22,10 +22,10 @@ mamba create -n unpack-env
 mamba activate unpack-env
 source /gpfs/data/BIO-DSB/Session7/MG_workshop_2026/Classify/classify_env/bin/activate
 echo "environment activated"
-
+mamba install -c conda-forge parallel
 # Define input/output directories
 GENOME_FASTA="$HOME/Metagenomics_shotgun_tutorial/RawData/Communityscaffolds.fasta"
-DB_DIR="/gpfs/data/BIO-DSB/Session7/MG_workshop_2026/Classify/k2_pluspf_16GB_20251015"
+DB_DIR="/gpfs/data/BIO-DSB/Session7/MG_workshop_2026/Classify/k2_pluspf_08_GB_20251015"
 BINS_DIR="$HOME/Metagenomics_shotgun_tutorial/CheckQual/bins/"
 OUTPUT_DIR="$HOME/Metagenomics_shotgun_tutorial/Classify/output/"
 
@@ -33,12 +33,11 @@ OUTPUT_DIR="$HOME/Metagenomics_shotgun_tutorial/Classify/output/"
 mkdir -p "$OUTPUT_DIR"
 echo $DB_DIR
 
-for bin in "$BINS_DIR*fasta"; do
-     echo $bin;	
-     kraken2 --db "$DB_DIR" --memory-mapping --threads 8 $bin --report $bin.krak --output $bin.out ; done
+find "$BINS_DIR" -maxdepth 1 -name "*fasta" -printf "%f\n" > basenames.txt
+
+cat basenames.txt | parallel --jobs 4 "kraken2 --db '$DB_DIR' --memory-mapping --threads 4 '$BINS_DIR'{} --report '$OUTPUT_DIR'{}.krak --output '$OUTPUT_DIR'{}.out" 
 
 echo "completed classification with kraken"
-for report in "$OUTPUT_DIR/*krak"; do
-    bracken -d "$DB_DIR" -i $report -o $report.bracken -w -r 100 -l S -t 16 ; done
+cat basenames.txt | parallel --jobs 1 "bracken -d '$DB_DIR' -i '$OUTPUT_DIR'{}.krak -o '$OUTPUT_DIR'{}.bracken -r 150 -l G"
 echo "completed report on the bins with bracken"
 
