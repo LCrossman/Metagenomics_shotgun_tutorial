@@ -13,11 +13,12 @@
 module add checkm/1.2.4
 
 # Define input/output directories
-GENOME_FASTA="$HOME/Metgenomics_shotgun_tutorial/Binning/CommunityScaffolds.fasta"
+GENOME_FASTA="$HOME/scratch/Metgenomics_shotgun_tutorial/RawData/CommunityScaffolds.fasta"
 FASTQ_DIR="/gpfs/data/BIO-DSB/Session7/MG_workshop_tutorial/FASTQ/"
-INPUT_DIR_METABAT="$HOME/scratch/Data/Community/Bins/"
-INPUT_DIR_SEMIBIN="$HOME/Metagenomics_shotgun_tutorial/Binning/semibinout/output_bins/"
-INPUT_DIR="$HOME/Metagenomics_shotgun_tutorial/CheckQual/bins/"
+INPUT_DIR_METABAT="$HOME/scratch/Metagenomics_shotgun_tutorial/Binning/Bins/"
+INPUT_DIR_BINSPREADER="$HOME/scratch/Metagenomics_shotgun_tutorial/Binning/refined_bins/"
+INPUT_DIR_SEMIBIN="$HOME/scratch/Metagenomics_shotgun_tutorial/Binning/semibinout/output_bins/"
+INPUT_DIR="$HOME/scratch/Metagenomics_shotgun_tutorial/CheckQual/Bins/"
 OUTPUT_DIR="checkm_output/"
 
 
@@ -26,7 +27,7 @@ mkdir -p "$OUTPUT_DIR"
 mkdir -p "$INPUT_DIR"
 
 find "$INPUT_DIR_METABAT" -maxdepth 1 -name "*fasta" -exec cp {} "$INPUT_DIR" \;
-
+find "$INPUT_DIR_BINSPREADER" -maxdepth 1 -name "*fasta" -exec cp {} "$INPUT_DIR" \;
 #You would need to run this if you are running checkm locally
 #checkm data setRoot .
 find "$INPUT_DIR_SEMIBIN" -maxdepth 1 -name "*.gz" -exec gunzip {} \;
