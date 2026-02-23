@@ -1,7 +1,7 @@
 #!/bin/bash -e
 #SBATCH --qos=bio-ds
 #SBATCH -p bio-ds
-#SBATCH --mem=24G
+#SBATCH --mem=40G
 #SBATCH --cpus-per-task=8
 #SBATCH --job-name=metagenomics_tutorial_classification
 #SBATCH -o /gpfs/home/%u/scratch/Data/Metagenomics_tutorial/Classify/Output_Messages/Metagenomics_tutorial-%a.out
