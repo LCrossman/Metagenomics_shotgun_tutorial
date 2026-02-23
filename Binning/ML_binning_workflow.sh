@@ -11,8 +11,8 @@
 
 module load SemiBin2/2.2.0
 echo "environment successfully created"
-GENOME_FASTA="$HOME/Metagenomics_shotgun_tutorial/Binning/CommunityScaffolds.fasta"
-INPUT_DIR="$HOME/Metagenomics_shotgun_tutorial/ReadAligns/"
+GENOME_FASTA="$HOME/scratch/Metagenomics_shotgun_tutorial/RawData/CommunityScaffolds.fasta"
+INPUT_DIR="$HOME/scratch/Metagenomics_shotgun_tutorial/ReadAligns/"
 
 SemiBin single_easy_bin -i "$GENOME_FASTA" --environment global -b "$INPUT_DIR"Community_aligned.bam.sorted.bam -o semibinout --verbose
 
