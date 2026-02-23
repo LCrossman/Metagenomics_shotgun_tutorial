@@ -24,10 +24,10 @@ source /gpfs/data/BIO-DSB/Session7/MG_workshop_2026/Classify/classify_env/bin/ac
 echo "environment activated"
 mamba install -c conda-forge parallel
 # Define input/output directories
-GENOME_FASTA="$HOME/Metagenomics_shotgun_tutorial/RawData/Communityscaffolds.fasta"
+GENOME_FASTA="$HOME/scratch/Metagenomics_shotgun_tutorial/RawData/CommunityScaffolds.fasta"
 DB_DIR="/gpfs/data/BIO-DSB/Session7/MG_workshop_2026/Classify/k2_pluspf_08_GB_20251015"
-BINS_DIR="$HOME/Metagenomics_shotgun_tutorial/CheckQual/bins/"
-OUTPUT_DIR="$HOME/Metagenomics_shotgun_tutorial/Classify/output/"
+BINS_DIR="$HOME/scratch/Metagenomics_shotgun_tutorial/CheckQual/Bins/"
+OUTPUT_DIR="$HOME/scratch/Metagenomics_shotgun_tutorial/Classify/output/"
 
 # Ensure OUTPUT_DIR exists
 mkdir -p "$OUTPUT_DIR"
