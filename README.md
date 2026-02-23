@@ -4,7 +4,6 @@ Metagenomics | shotgun workflow tutorial | Data Science and Bioinformatics (BIO-
 
 <hr style="height:5px; border:none; color:#333; background-color:#333;">
 
-Currently *NOT FULLY WORKING* this is a draft only
 
 # Learning Objectives 
 
