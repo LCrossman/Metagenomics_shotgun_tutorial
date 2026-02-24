@@ -1,0 +1,13 @@
+name: checkm_legacy
+channels:
+  - bioconda
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9
+  - hmmer=3.1b1  # Forced legacy version
+  - prodigal=2.6.3
+  - pplacer=1.1.alpha19
+  - numpy=1.23.5
+  - matplotlib=3.7
+  - checkm-genome=1.2.2
