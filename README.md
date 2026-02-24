@@ -4,7 +4,6 @@ Metagenomics | shotgun workflow tutorial | Data Science and Bioinformatics (BIO-
 
 <hr style="height:5px; border:none; color:#333; background-color:#333;">
 
-Currently *NOT FULLY WORKING* this is a draft only
 
 # Learning Objectives 
 
@@ -33,7 +32,7 @@ from the dataset.  We then identify the quality of these bins and assign them to
 
 1.1 Raw Data
 You will find the metagenome assembly in the GitHub repository (CommunityScaffolds.fasta).  The paired-end
-short read data is at /gpfs/data/BIO-DBS/Session8/MG_workflow_2026/RawData/  You will need these three files for the next step.
+short read data is at /gpfs/data/BIO-DBS/Session7/MG_workflow_2026/RawData/  You will need these three files for the next step.
 
 Fasta Assembly file:  CommunityScaffolds.fasta 
 
@@ -57,7 +56,7 @@ Output: A sorted bam file containing read alignment data
 # Step 2. - Binning 
 - Try to run the binning pipeline
 - Investigate the questions
-It is *highly* recommended to run this on HPC because the binning software and checkM can be tricky to install!
+---->>  if you are building on any system other than HPC you will need to build metabat2 directly from mamba or conda
 
 2.1 Binning with Metabat2 
 Here you can use alternative binning software to investigate the metagenome.  We first use Metabat2 and
@@ -80,12 +79,13 @@ Purpose: Metagenomic binning to extract single genomes from a mixture using a ma
 Outputs: Stats and bins as a set of genome fasta files
 
 # Step 3. - Assess Bin Quality
+-->> it is *highly* recommended to run this on HPC because installation of checkM can be tricky! 
 
 Check Quality of the bins
 You will need to check the quality of all the bins using the program CheckM which outputs statistics such
 as the completeness and contamination.
 
-Script: checkm_quality.sh
+Script: CheckQual/checkm_quality.sh
 
 Purpose: To identify the quality of each bin. 
 
@@ -103,9 +103,9 @@ Output: Bin reports - for each bin there will be a taxa report with abundance fr
 # Step 5. Conclusions
 Make some conclusions about your results both technically and biologically. 
 
-# Step 6. Optional - Plotting scripts
+# Step 6. Optional - Plotting scripts in R programming language
 
-Scripts: XX
+Scripts: Optional_plotting/plot_metabat_statistics.R
 
 Data: Your output from steps 4 or 5. 
 
@@ -123,9 +123,6 @@ Take the analyses further with the following suggestions:
 - Binning parameters:  Metabat2 has a large number of parameters that can be used to fine-tune your results.
 Read the short software manual for metabat2 to identify these parameters, alter some and identify using checkM whether the parameters improved the bin qualities or not.  Try to make some conclusions about why.
 
-- Consider the composition of the provided dataset.  You may be able to find out what it is from online from the organisms you identified.  There are particular features of this dataset that make it both (a) easier and (b) more difficult to bin than some other datasets.
-What are these features?
-
 - Data Visualization (use R): Plot graphs of the data from step 4 (e.g. numbers of bins, length in bp of each fasta, N50) and/or step 5 (e.g. contamination, heterogeneity, completeness of different binning methods) using R ggplot2 or similar.  Do the results show any particular trends?
 
 - Long Reads:  You can find a dataset of long reads for the same data (Oxford Nanopore) in [..]  You can use these in the Metabat2 binning
@@ -136,9 +133,9 @@ HINT: use linux to join the files together using:
 cat CommunityScaffolds.fasta LongReads.fasta > TotalDataset.fasta
 ```
 
-Use checkM to identify if the long reads improved the results or not. 
+After binning, use checkM on each of the bin fasta files to identify if the long reads improved the results or not. 
 
-- Real world Garden Data:  Ask me for three separate short read metagenomic datasets from soil in a Professor's garden.  Is the microbial
+- Real world Garden Data:  Ask me for the link to three separate short read metagenomic datasets from soil in a Professor's garden.  Is the microbial
 composition in the three samples identical/similar or different?
 
 

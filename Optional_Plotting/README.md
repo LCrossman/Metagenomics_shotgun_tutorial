@@ -1,15 +1,15 @@
 # Optional Plotting script for group work 
 
 
-# This is local work - you can download and run locally 
-# This is relevant to the Data visualisation project and Technical binning project
+This is local work - you can download and run locally 
+This is relevant to the Data visualisation project and Technical binning project
 
 
-# You will need the output files from metabat2 binning script
-# first file: depth.txt (containing tab-delimited data on the read coverage depth per contig of metagenome assembly)
+You will need the output files from metabat2 binning script
+first file: depth.txt (containing tab-delimited data on the read coverage depth per contig of metagenome assembly) from metabat2
 #
-# second file: binning.tsv (containing two tab separated columns NAME_OF_CONTIG [tab] NAME_OF_BIN
+second file: binning.tsv (containing two tab separated columns NAME_OF_CONTIG [tab] NAME_OF_BIN) from binspreader
 #
-# can you create similar plot for the semibin output or a comparative plot?
+can you create similar plot for the semibin output or a comparative plot?
 #
-# what does it all mean? 
+what does it all mean? 
