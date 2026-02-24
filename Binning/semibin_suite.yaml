@@ -1,0 +1,12 @@
+name: semibin_env
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python=3.12
+  - semibin=2.2.0
+  - samtools
+  - hmmer
+  - prodigal
+  - bedtools
