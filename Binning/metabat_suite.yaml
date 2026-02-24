@@ -1,0 +1,9 @@
+name: metabat_suite
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python=3.11
+  - metabat2=2.15
+  - binspreader=3.16.0.dev
