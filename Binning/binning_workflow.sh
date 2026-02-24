@@ -20,12 +20,12 @@ mamba activate unpackenv
 # what we can do instead is to use conda-pack to create an archived environment.  This archived environment
 # is only for HPC and you would have to use mamba to fully build the environment on any other system
 
-# to build the env for yourself use this after copying /gpfs/data/BIO-DSB/Session7/MG_workflow_2026/binning_env.tar.gz to your scratch
+# to build the env for yourself use this after copying /gpfs/data/BIO-DSB/Session7/MG_workflow_2026/binning_env2.tar.gz to your scratch
 # mkdir -p scratch/my_binning_env
-# tar -xvf scratch/binning_env.tar.gz -C scratch/my_binning_env
+# tar -xvf scratch/binning_env2.tar.gz -C scratch/my_binning_env
 # source scratch/my_binning_env/bin/activate
 
-# to build straightaway from the BIO-DSB dir - fastest but the environemnt will be read-only
+# to build straightaway from the BIO-DSB dir - fastest but the environment is read-only
 source /gpfs/data/BIO-DSB/Session7/MG_workshop_2026/Binning_env2/bin/activate
 
 
