@@ -12,7 +12,10 @@
 
 module add mamba/25.3.1
 source /gpfs/software/hali/mamba/25.3.1-0/etc/profile.d/mamba.sh
-mamba create -n unpackenv
+# check if the environment exists from a previous run and if so delete it or it will fail here
+mamba env remove -n unpackenv -y || true
+# (re)create the environment 
+mamba create -n unpackenv -y
 mamba activate unpackenv
 
 # mamba is a faster version of anaconda/conda
