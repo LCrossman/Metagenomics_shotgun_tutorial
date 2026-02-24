@@ -17,7 +17,9 @@ module add mamba/25.3.1-0   #load mamba module to install binspreader
 
 source /gpfs/software/hali/mamba/25.3.1-0/etc/profile.d/mamba.sh
 echo "successfully sourced paths"
-mamba create -n unpack-env
+# adding route to check and delete if the environment already exists from a previous run so it does not quit here
+mamba env remove -n unpack-env -y || true
+mamba create -n unpack-env -y
 # initialize Mamba
 mamba activate unpack-env
 source /gpfs/data/BIO-DSB/Session7/MG_workshop_2026/Classify/classify_env/bin/activate
