@@ -25,13 +25,15 @@ OUTPUT_DIR="$HOME/scratch/Metagenomics_shotgun_tutorial/ReadAligns/"
 # Ensure OUTPUT_DIR exists
 mkdir -p "$OUTPUT_DIR"
 cp "$GENOME_FASTA" "$OUTPUT_DIR"
-
+echo "copied reference fasta successfully"
+cp "$FASTQ_DIR"/EDME*fastq.gz "$OUTPUT_DIR"
+echo "copied read files successfully"
 #Here we index the metagenome assembly for use with the read alignment tool bowtie2
 bowtie2-build "$OUTPUT_DIR"CommunityScaffolds.fasta "$OUTPUT_DIR"CommunityScaffolds.fasta
 
 #here we align the reads to the reference assembly, converting directly to bam format using a pipe to
 #avoid saving a very large intermediate file to disk
-bowtie2 -p 16 -x "$OUTPUT_DIR"CommunityScaffolds.fasta -1 "$FASTQ_DIR"EDME200007170-1a_HCYHVDSXY_L2_1.fq.gz -2 "$FASTQ_DIR"EDME200007170-1a_HCYHVDSXY_L2_2.fq.gz | samtools view -@ 16 -bS -  > Community_aligned.bam
+bowtie2 -p 16 -x "$OUTPUT_DIR"CommunityScaffolds.fasta -1 "$OUTPUT_DIR"EDME200007170-1a_HCYHVDSXY_L2_1.fq.gz -2 "$OUTPUT_DIR"EDME200007170-1a_HCYHVDSXY_L2_2.fq.gz | samtools view -@ 16 -bS -  > Community_aligned.bam
 
 echo "saved alignment file directly to bam file, sorting..."
 samtools sort -@ 16 Community_aligned.bam -o Community_aligned.bam.sorted.bam
