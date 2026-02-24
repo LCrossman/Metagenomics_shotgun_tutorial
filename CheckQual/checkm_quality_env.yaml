@@ -1,11 +1,11 @@
-name: checkm_legacy
+name: checkm_env
 channels:
   - bioconda
   - conda-forge
   - defaults
 dependencies:
   - python=3.9
-  - hmmer=3.1b1  # Forced legacy version
+  - hmmer=3.1b1  # very important legacy version
   - prodigal=2.6.3
   - pplacer=1.1.alpha19
   - numpy=1.23.5
