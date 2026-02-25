@@ -73,7 +73,9 @@ bin-refine "$HOME"/scratch/Metagenomics_shotgun_tutorial/Binning/CommunityScaffo
 python "$SCRIPT_DIR"visualize_bin_dist.py -i "$OUTPUT_DIR"/binspreader-Rcorr/bin_dist.tsv -o result/dendrogram.png
 
 python "$SCRIPT_DIR"extract_fasta_bins.py -b "$OUTPUT_DIR"/binspreader-Rcorr/binning.tsv -i "$INPUT_DIR"CommunityScaffolds.fasta -o refined_bins
-for file in refined_bins/MetaBatBins*fasta; do mv $file "refined_"$file; done
+cd refined_bins
+for file in MetaBatBins*fasta; do mv $file "refined_"$file; done
+cd ..
 echo "bin refining process complete"
 
 # these scripts could be of interest to look into in more depth

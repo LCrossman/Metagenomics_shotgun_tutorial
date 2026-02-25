@@ -26,7 +26,7 @@ OUTPUT_DIR="$HOME/scratch/Metagenomics_shotgun_tutorial/ReadAligns/"
 mkdir -p "$OUTPUT_DIR"
 cp "$GENOME_FASTA" "$OUTPUT_DIR"
 echo "copied reference fasta successfully"
-cp "$FASTQ_DIR"EDME*fastq.gz "$OUTPUT_DIR"
+cp "$FASTQ_DIR"EDME*fq.gz "$OUTPUT_DIR"
 echo "copied read files successfully"
 #Here we index the metagenome assembly for use with the read alignment tool bowtie2
 bowtie2-build "$OUTPUT_DIR"CommunityScaffolds.fasta "$OUTPUT_DIR"CommunityScaffolds.fasta
